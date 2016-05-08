@@ -1,5 +1,6 @@
 <html>
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style>
       body {
         font-family: "Helvetica Neue", helvetica, arial;
@@ -11,24 +12,35 @@
         margin: 0;
         padding: 0;
       }
-
-      ul li {
-        line-height: 1.4;
+      ul#board{
+        display:table;
+        min-width:500px;
+        max-width:1000px;
+        width: 70%;
+        margin-left: 15%;
+        margin-right: 15%;
       }
-    </style>
+      ul#board ul{
+        display:table-row;
+      }
 
-    <script>
-      var host = location.origin.replace(/^http/, 'ws')
-      var ws = new WebSocket(host);
-      ws.onmessage = function (event) {
-        var li = document.createElement('li');
-        li.innerHTML = JSON.parse(event.data);
-        document.querySelector('#pings').appendChild(li);
-      };
-    </script>
+      ul#board ul li{
+        display:table-cell;
+        width:5%;
+        border-style: outset;
+        background-color: #D3D3D3;
+        text-align: center;
+        font-weight: bold;
+        padding: 15px 12px;
+      }
+
+    </style>
   </head>
   <body>
     <h1>Pings</h1>
     <ul id='pings'></ul>
+    <ul id='board'>
+    </ul>
   </body>
+  <script src="main.js"></script>
 </html>
