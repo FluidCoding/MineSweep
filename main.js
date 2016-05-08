@@ -83,22 +83,30 @@ init()
     var dY = 0
     var uX = 0
     var uY = 0
-    if(r>0)
+    if(r>0){
       uY=r-1
-    else
+    }
+    else{
       uY = 0
-    if(r<bH-1)
+    }
+    if(r<bH-1){
       dY=r+1
-    else
-      dY=bH
-    if(c>0)
+    }
+    else{
+      dY=bH-1
+    }
+    if(c>0){
       uX=c-1
-    else
+    }
+    else{
       uX=0
-    if(c<bW-1)
+    }
+    if(c<bW-1){
       dX=c+1
-    else
-      dX=bW
+    }
+    else{
+      dX=bW-1
+    }
 
 
     if(a[r][c]==0){
