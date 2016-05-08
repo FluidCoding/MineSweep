@@ -91,66 +91,25 @@ init()
     if(c<bW-1)  dX=c+1
     else dX=bW
 
+    var style = function(_r,_c) { return document.getElementById(_r+"_"+_c).style.border==='inset'};
+
     if(a[r][c]==0){
         $("#"+r+"_"+c).attr('style', 'border-style:inset')
         $("#"+r+"_"+c).on('click', null)
     }
     console.log(r,c)
-    console.log(document.getElementById("#"+r+"_"+c))
 
-  //  if(uY!==r & a[uY][uX]===0) markZeros(uY,uX)  // upperleft
-    if(uY!==r & a[uY][c]===0) markZeros(uY,c) // up
+    if(uY!==r & a[uY][c]===0 & !style(uY, c)) markZeros(uY,c) // up
 
-  //  if(dY!==r & a[dY][c]===0) markZeros(dY,c) //down
+    if(dY!==r & a[dY][c]===0 & !style(dY, c)) markZeros(dY,c) //down
 
-    if(uX!==c & a[r][uX]===0)  markZeros(r,c-1)  //left
+    if(uX!==c & a[r][uX]===0 & !style(r, uX))  markZeros(r,c-1)  //left
 
-  //  if(dX!==c & a[r][dX]===0) markZeros(r,c+1) //right
-//    if(dX!==c & dY!==r & a[dY][dX]===0) markZeros(dY,dX) //bottomright
-  //  if(uX!==c & dY!==r & a[dY][uX]===0) markZeros(dY,dX) //bottomleft
-/*
-    for(var iY=0; iY<y; iY++){
-      for(var iX=0; iX<x; iX++){
-        if(board[iY][iX]===0){
-          if(iY>0){
-            if(board[iY-1][iX]===0)  board[iY-1][iX]++;  // up
-            if(iX>0){
-              if(board[iY-1][iX-1]===0) board[iY-1][iX-1]++; //upperleft
-              if(board[iY][iX-1]===0)  board[iY][iX-1]++;  // left
-            }
-            if(iX<x-1){
-              if(board[iY-1][iX+1]===0)  board[iY-1][iX+1]++;  // upperright
-              if(board[iY][iX+1]===0) board[iY][iX+1]++; //right
+    if(dX!==c & a[r][dX]===0 & !style(r, dX)) markZeros(r,c+1) //right
 
-              if(iY<y-1){
-                if(board[iY+1][iX+1]===0)  board[iY+1][iX+1]++;  //bottomright
-              }
-            }
-            if(iY<y-1){
-              if(board[iY+1][iX-1]===0)  board[iY+1][iX-1]++;  //bottomleft
-            }
-          }
-          else{
-              if(iX>0){
-                if(board[iY][iX-1]===0)  board[iY][iX-1]++;  // left
-                if(iY<y-1){
-                  if(board[iY+1][iX-1]===0)  board[iY+1][iX-1]++;  //bottomleft
-                }
-              }
-              if(iX<x-1){
-                if(board[iY][iX+1]===0) board[iY][iX+1]++; //right
-
-                if(iY<y-1){
-                  if(board[iY+1][iX+1]===0)  board[iY+1][iX+1]++;  //bottomright
-                }
-              }
-          }
-          if(iY<y-1){
-            if(board[iY+1][iX]===0)  board[iY+1][iX]++;  //down
-          }
-        }
-      }
-      */
+    if(uY!==r & a[uY][uX]===0 & !style(uY, uX)) markZeros(uY,uX)  // upperleft
+    if(dX!==c & dY!==r & a[dY][dX]===0 & !style(dY, dX)) markZeros(dY,dX) //bottomright
+    if(uX!==c & dY!==r & a[dY][uX]===0 & !style(dY, uX)) markZeros(dY,dX) //bottomleft
   }
   var a = Board(bH,bW,9);
   function spaceClicked(e){console.log(e)
