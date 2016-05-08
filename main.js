@@ -113,19 +113,40 @@ init()
         $("#"+r+"_"+c).attr('style', 'border-style:inset')
         $("#"+r+"_"+c).on('click', null)
     }
-    console.log(r,c,dY)
-    console.log(a[9][0])
+
+    console.log("rc", r,c)
     if(uY!==r & a[uY][c]===0 & !style(uY, c)) markZeros(uY,c) // up
-
+    else if(a[uY][c]!==0){
+      console.log("Marking Up Edge", r, c, a[uY][c])
+      $("#"+uY+"_"+c).attr('style', 'border-style:inset')
+      $("#"+uY+"_"+c).text(a[uY][c]);
+      $("#"+uY+"_"+c).on('click', null)
+    }
     if(dY!==r & a[dY][c]===0 & !style(dY, c)) markZeros(dY,c) //down
-
-    if(uX!==c & a[r][uX]===0 & !style(r, uX))  markZeros(r,c-1)  //left
-
-    if(dX!==c & a[r][dX]===0 & !style(r, dX)) markZeros(r,c+1) //right
-
+    else if(a[dY][c]!==0){
+      console.log("Marking Down Edge", dY, c, a[dY][c])
+      $("#"+dY+"_"+c).attr('style', 'border-style:inset')
+      $("#"+dY+"_"+c).text(a[dY][c]);
+      $("#"+dY+"_"+c).on('click', null)
+    }
+    if(uX!==c & a[r][uX]===0 & !style(r, uX))  markZeros(r,uX)  //left
+    else if(a[r][uX]!==0){
+      console.log("Marking Left Edge", r, uX, a[r][uX])
+      $("#"+r+"_"+uX).attr('style', 'border-style:inset')
+      $("#"+r+"_"+uX).text(a[r][uX]);
+      $("#"+r+"_"+uX).on('click', null)
+    }
+    if(dX!==c & a[r][dX]===0 & !style(r, dX)) markZeros(r,dX) //right
+    else if(a[r][dX]!==0){
+      console.log("Marking Right Edge", r, dX, a[r][dX])
+      $("#"+r+"_"+dX).attr('style', 'border-style:inset')
+      $("#"+r+"_"+dX).text(a[r][dX]);
+      $("#"+r+"_"+dX).on('click', null)
+    }
 //    if(uY!==r & a[uY][uX]===0 & !style(uY, uX)) markZeros(uY,uX)  // upperleft
 //    if(dX!==c & dY!==r & a[dY][dX]===0 & !style(dY, dX)) markZeros(dY,dX) //bottomright
   //  if(uX!==c & dY!==r & a[dY][uX]===0 & !style(dY, uX)) markZeros(dY,dX) //bottomleft
+
   }
   var a = Board(bH,bW,9);
   function spaceClicked(e){console.log(e)
