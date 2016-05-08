@@ -96,14 +96,18 @@ init()
         $("#"+r+"_"+c).on('click', null)
     }
     console.log(r,c)
+    console.log(document.getElementById("#"+r+"_"+c))
 
   //  if(uY!==r & a[uY][uX]===0) markZeros(uY,uX)  // upperleft
     if(uY!==r & a[uY][c]===0) markZeros(uY,c) // up
+
+  //  if(dY!==r & a[dY][c]===0) markZeros(dY,c) //down
+
     if(uX!==c & a[r][uX]===0)  markZeros(r,c-1)  //left
-    if(dX!==c & a[r][dX]===0) markZeros(r,c+1) //right
+
+  //  if(dX!==c & a[r][dX]===0) markZeros(r,c+1) //right
 //    if(dX!==c & dY!==r & a[dY][dX]===0) markZeros(dY,dX) //bottomright
   //  if(uX!==c & dY!==r & a[dY][uX]===0) markZeros(dY,dX) //bottomleft
-    if(dY!==r & a[dY][c]===0) markZeros(dY,c) //down
 /*
     for(var iY=0; iY<y; iY++){
       for(var iX=0; iX<x; iX++){

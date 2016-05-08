@@ -1,6 +1,6 @@
-# Node.js Websocket Test
+# MineSweep
 
-A tiny demo using the [einaros/ws](http://einaros.github.io/ws/) WebSockets implementation.
+Todo: Network it
 
 # Running Locally
 
