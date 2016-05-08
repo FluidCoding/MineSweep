@@ -77,28 +77,36 @@ init()
     }
     return board;
   }
+  var style = function(_r,_c) { return document.getElementById(_r+"_"+_c).style.border==='inset'};
   function markZeros(r,c){
     var uY = 0
     var dY = 0
     var uX = 0
     var uY = 0
-    if(r>0) uY=r-1
-    else uY = 0
-    if(r<bH-1) dY=r+1
-    else dY=bH
-    if(c>0) uX=c-1
-    else uX=0
-    if(c<bW-1)  dX=c+1
-    else dX=bW
+    if(r>0)
+      uY=r-1
+    else
+      uY = 0
+    if(r<bH-1)
+      dY=r+1
+    else
+      dY=bH
+    if(c>0)
+      uX=c-1
+    else
+      uX=0
+    if(c<bW-1)
+      dX=c+1
+    else
+      dX=bW
 
-    var style = function(_r,_c) { return document.getElementById(_r+"_"+_c).style.border==='inset'};
 
     if(a[r][c]==0){
         $("#"+r+"_"+c).attr('style', 'border-style:inset')
         $("#"+r+"_"+c).on('click', null)
     }
-    console.log(r,c)
-
+    console.log(r,c,dY)
+    console.log(a[9][0])
     if(uY!==r & a[uY][c]===0 & !style(uY, c)) markZeros(uY,c) // up
 
     if(dY!==r & a[dY][c]===0 & !style(dY, c)) markZeros(dY,c) //down
@@ -107,9 +115,9 @@ init()
 
     if(dX!==c & a[r][dX]===0 & !style(r, dX)) markZeros(r,c+1) //right
 
-    if(uY!==r & a[uY][uX]===0 & !style(uY, uX)) markZeros(uY,uX)  // upperleft
-    if(dX!==c & dY!==r & a[dY][dX]===0 & !style(dY, dX)) markZeros(dY,dX) //bottomright
-    if(uX!==c & dY!==r & a[dY][uX]===0 & !style(dY, uX)) markZeros(dY,dX) //bottomleft
+//    if(uY!==r & a[uY][uX]===0 & !style(uY, uX)) markZeros(uY,uX)  // upperleft
+//    if(dX!==c & dY!==r & a[dY][dX]===0 & !style(dY, dX)) markZeros(dY,dX) //bottomright
+  //  if(uX!==c & dY!==r & a[dY][uX]===0 & !style(dY, uX)) markZeros(dY,dX) //bottomleft
   }
   var a = Board(bH,bW,9);
   function spaceClicked(e){console.log(e)
