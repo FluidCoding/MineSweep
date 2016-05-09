@@ -205,6 +205,9 @@ init()
       $("#board").append(r);
     }
     $("#board ul li").on("click", spaceClicked);
+    $("#board ul li").on("longclick", function(e){
+      spaceFlagged(e);
+    });
     $(document).on('contextmenu', function(e) {
     if ($(e.target).is("li") ){
         spaceFlagged(e);
