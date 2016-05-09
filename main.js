@@ -78,7 +78,11 @@ init()
     }
     return board;
   }
+  // isInset = style
   var style = function(_r,_c) { return document.getElementById(_r+"_"+_c).style.border==='inset'};
+  /**
+   * Traverse board mark any connecting 0 weight spaces and the edge integers.
+   */
   function markZeros(r,c){
     var uY = 0
     var dY = 0
@@ -158,10 +162,39 @@ init()
       $("#"+r+"_"+dX).unbind('longclick');
     }
 // TODO: add diagnol auto marking
-//    if(uY!==r & a[uY][uX]===0 & !style(uY, uX)) markZeros(uY,uX)  // upperleft
-//    if(dX!==c & dY!==r & a[dY][dX]===0 & !style(dY, dX)) markZeros(dY,dX) //bottomright
-  //  if(uX!==c & dY!==r & a[dY][uX]===0 & !style(dY, uX)) markZeros(dY,dX) //bottomleft
-
+    if(uY!==r & a[uY][uX]===0 & !style(uY, uX)) markZeros(uY,uX)
+    else if(a[uY][uX]!==0){
+      console.log("Marking UpLeft Edge", r, c, uY, a[uY][uX])
+      $("#"+uY+"_"+uX).attr('style', 'border-style:inset')
+      $("#"+uY+"_"+uX).text(a[uY][uX]);
+      $("#"+uY+"_"+uX).unbind('click');
+      $("#"+uY+"_"+uX).unbind('longclick');
+      
+    }  // upperleft
+    if(dX!==c & a[uY][dX]===0 & !style(uY, dX)) markZeros(uY,dX)
+    else if(a[uY][dX]!==0){
+      console.log("Marking UpLeft Edge", r, c, uY, a[uY][dX])
+      $("#"+uY+"_"+dX).attr('style', 'border-style:inset')
+      $("#"+uY+"_"+dX).text(a[uY][dX]);
+      $("#"+uY+"_"+dX).unbind('click');
+      $("#"+uY+"_"+dX).unbind('longclick');
+    }  // upperright
+    if(dX!==c & dY!==r & a[dY][dX]===0 & !style(dY, dX)) markZeros(dY,dX) //bottomright
+      else if(a[dY][dX]!==0){
+      console.log("Marking bottom right Edge", r, c, dY, a[uY][dX])
+      $("#"+dY+"_"+dX).attr('style', 'border-style:inset')
+      $("#"+dY+"_"+dX).text(a[dY][dX]);
+      $("#"+dY+"_"+dX).unbind('click');
+      $("#"+dY+"_"+dX).unbind('longclick');
+    }  
+     if(uX!==c & dY!==r & a[dY][uX]===0 & !style(dY, uX)) markZeros(dY,uX) //bottomleft
+      else if(a[dY][uX]!==0){
+        console.log("Marking bottom left Edge", r, c, dY, a[uY][uX])
+        $("#"+dY+"_"+uX).attr('style', 'border-style:inset')
+        $("#"+dY+"_"+uX).text(a[dY][uX]);
+        $("#"+dY+"_"+uX).unbind('click');
+        $("#"+dY+"_"+uX).unbind('longclick');
+    }  
   }
   var a = Board(bH,bW,9);
   // Choose a tile

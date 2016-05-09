@@ -1,6 +1,7 @@
 # MineSweep
 
-Live: https://mine-sweep.herokuapp.com/
+Live: https://mine-sweep.herokuapp.com
+
 Todo: Network it
 
 # Running Locally

@@ -1,71 +1,136 @@
 <html>
-  <head>
-    <meta name="viewport" content="user-scalable=0, width=510px, minimum-scale=1.0"></meta>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <style>
-      body {
-        font-family: "Helvetica Neue", helvetica, arial;
-        padding: 15px;
-        background-color: #008B8B;
-      }
-      h1{
-        text-align: center;
-      }
 
-      ul {
-        list-style: none;
+<head>
+  <meta name="viewport" content="user-scalable=0, width=510px, minimum-scale=1.0"></meta>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <style>
+    body {
+      font-family: "Helvetica Neue", helvetica, arial;
+      padding: 15px;
+      background-color: #008B8B;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    ul#board {
+      display: table;
+      min-width: 500px;
+      max-width: 1000px;
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+      
+      border-style: outset;
+    }
+    
+    @media screen and (max-width:510px) {
+      body {
         margin: 0;
         padding: 0;
       }
-      ul#board{
-        display:table;
-        min-width:500px;
-        max-width:1000px;
-        width: 70%;
-        margin-left: 15%;
-        margin-right: 15%;
-        border-style: outset;
+      ul#board {
+        margin: 0;
       }
-      @media screen and (max-width:510px){
-        body{
-          margin: 0;
-          padding: 0;
-        }
-        ul#board{
-          margin: 0;
-        }
-        ul#board ul li{
-          -webkit-touch-callout:none;
-          -webkit-user-select:none;
-          -khtml-user-select:none;
-          -moz-user-select:none;
-          -ms-user-select:none;
-          user-select:none;
-          -webkit-tap-highlight-color:rgba(0,0,0,0);
-        }
+      ul#board ul li {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       }
-      ul#board ul{
-        display:table-row;
-      }
+    }
+    
+    ul#board ul {
+      display: table-row;
+    }
+    
+    ul#board ul li {
+      display: table-cell;
+      width: 5%;
+      border-style: outset;
+      background-color: #D3D3D3;
+      text-align: center;
+      font-weight: bold;
+      padding: 15px 12px;
+    }
+    
+    footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      background-color: gray;
+      text-align:center;
+    }
+    #boardhead{
+      /*width: 450px;*/
+      margin-left: auto;
+      margin-right:auto;
+      margin-bottom: 0px;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      background-color: #0D4552;
+      min-width: 500px;
+      max-width: 1000px;
+      padding-top: 9px;
+      padding-bottom: 9px;
+      border-style: groove;
+      display: flex;
+      width: 70%;
+    }
+    #boardhead button{
+      align-self: flex-start;
+      padding-left: 10px;
+       margin: auto;
+    }
+    #timer{
+/*      align-self: center;*/
+      background-color: #000;
+      color: darkred;
+      font-weight:bold;
+      font-family: monospace;
+      padding: 7px 5px;
+      font-size: 14pt;
+       margin: auto;
+    }
+    #bombs{
+      background-color: #000;
+      color: darkred;
+      font-weight:bold;
+      font-family: monospace;
+      padding: 7px 5px;
+      font-size: 14pt;
+       margin: auto;
+      
+    }
+    #new_game{
+      background-color: darkgrey;
+      font-family: monospace;
+      font-size: 15pt;
+    }
+  </style>
+</head>
 
-      ul#board ul li{
-        display:table-cell;
-        width:5%;
-        border-style: outset;
-        background-color: #D3D3D3;
-        text-align: center;
-        font-weight: bold;
-        padding: 15px 12px;
-      }
+<body>
+  <h1>Mine-Sweeper</h1>
+  <ul id='pings'></ul>
+  <div id='boardhead'>
+    <button id="new_game">New Game</button>
+    <span id="timer"><em id="hour">0</em>:<em id="minute">00</em>:<em id="seconds">00</em></span>
+    <span id="bombs">Remaining Mines:<em id="bombcount">9<em></span>
+  </div>
+  <ul id='board'></ul>
+  <footer>Dedicated to Rachel :D</footer>
+</body>
+<script src="main.js"></script>
 
-    </style>
-  </head>
-  <body>
-    <h1>Mine-Sweeper</h1>
-    <ul id='pings'></ul>
-    <ul id='board'>
-    </ul>
-    <h1>Dedicated to Rachel :D</h1>
-  </body>
-  <script src="main.js"></script>
 </html>
