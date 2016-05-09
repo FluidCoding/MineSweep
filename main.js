@@ -281,6 +281,8 @@
   // Build Board UI
   $(function(){
     $('#new_game').on('click', ()=>{
+      $("#board ul li").unbind('click');
+      $(document).unbind('contextmenu');
       $("#board").html("");
       init(); 
     });
