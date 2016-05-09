@@ -7,6 +7,8 @@
   var a;  // Board short-name
   // Choose a tile
   function init(){
+    clearInterval(intervalId);
+    intervalId=0;
     gameOver=false;
     timeElapsed=0;
     bW = 10;
@@ -225,7 +227,7 @@
     }  
   }
   function spaceClicked(e){
-    if(timeElapsed===0) startTimer();
+    if(timeElapsed===0 && intervalId<=0) startTimer();
     $(e.currentTarget).attr('style', 'border-style:inset');
     // Unbind events (context menu still there) need to use mouse down
     $(e.currentTarget).unbind('click');
@@ -241,7 +243,7 @@
     }
     else if(a[row][col]===-1){        // Lose
       gameOver=true;
-      clearInterval(intervalId);
+      clearInterval(intervalId);  intevalId=0;
       $(e.currentTarget).text("*")
       $(e.currentTarget).attr('style','background-color:#B22222')
 
@@ -299,7 +301,6 @@
   // Build Board UI
   $(function(){
     $('#new_game').on('click', ()=>{
-      clearInterval(intervalId);
       $("#board ul li").unbind('click');
       $(document).unbind('contextmenu');
       $("#board").html("");
