@@ -2,11 +2,36 @@
   var gameOver = false;
   var bW = 0;
   var bH = 0;
+  var a;  // Board short-name
+  // Choose a tile
   function init(){
+    gameOver=false;
     bW = 10;
     bH = 10;
+    a = Board(bH,bW,9);
+    for(var i=0;i<bH;i++){
+      var r = document.createElement('ul')
+      r.id = 'r'+i;
+      for(var k = 0; k<bW; k++ ){
+        let spot = document.createElement('li')
+        spot.id=i+'_'+k;
+        //spot.innerHTML = a[i][k];
+        spot.innerHTML = '&nbsp;'
+        r.appendChild(spot)
+      }
+      $("#board").append(r);
+    }
+    $("#board ul li").on("click", spaceClicked);
+    $("#board ul li").on("longclick", function(e){
+      spaceFlagged(e);
+    });
+    $(document).on('contextmenu', function(e) {
+      if ($(e.target).is("li") ){
+        spaceFlagged(e);
+       return false;
+      }
+    });
   }
-init()
   // count bombs
   var bombCount = function(x,y){
     var bC =0;
@@ -196,8 +221,6 @@ init()
         $("#"+dY+"_"+uX).unbind('longclick');
     }  
   }
-  var a = Board(bH,bW,9);
-  // Choose a tile
   function spaceClicked(e){
     $(e.currentTarget).attr('style', 'border-style:inset');
     // Unbind events (context menu still there) need to use mouse down
@@ -249,34 +272,18 @@ init()
   console.log(bombCount(bH,bW))
   var host = location.origin.replace(/^http/, 'ws')
   var ws = new WebSocket(host);
-  ws.onmessage = function (event) {
+/*  ws.onmessage = function (event) {
     var li = document.createElement('li');
     li.innerHTML = JSON.parse(event.data);
     document.querySelector('#pings').appendChild(li);
   };
+  */
   // Build Board UI
   $(function(){
-    for(var i=0;i<bH;i++){
-      var r = document.createElement('ul')
-      r.id = 'r'+i;
-      for(var k = 0; k<bW; k++ ){
-        let spot = document.createElement('li')
-        spot.id=i+'_'+k;
-        //spot.innerHTML = a[i][k];
-        spot.innerHTML = '&nbsp;'
-        r.appendChild(spot)
-      }
-      $("#board").append(r);
-    }
-    $("#board ul li").on("click", spaceClicked);
-    $("#board ul li").on("longclick", function(e){
-      spaceFlagged(e);
+    $('#new_game').on('click', ()=>{
+      $("#board").html("");
+      init(); 
     });
-    $(document).on('contextmenu', function(e) {
-      if ($(e.target).is("li") ){
-        spaceFlagged(e);
-       return false;
-      }
-    });
+    init();
   });
 //})();
