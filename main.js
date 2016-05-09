@@ -1,6 +1,7 @@
 //(function() {
   var gameOver = false;
   var timeElapsed = 0;
+  var intervalId=0;
   var bW = 0;
   var bH = 0;
   var a;  // Board short-name
@@ -240,6 +241,7 @@
     }
     else if(a[row][col]===-1){        // Lose
       gameOver=true;
+      clearInterval(intervalId);
       $(e.currentTarget).text("*")
       $(e.currentTarget).attr('style','background-color:#B22222')
 
@@ -274,7 +276,7 @@
     var hours=$("#hours");
     var minutes=$("#minutes");
     var seconds=$("#seconds");
-    setInterval(function(){
+    intervalId = setInterval(function(){
       timeElapsed++;
       let h = Math.floor(timeElapsed / 3600);
       let m = Math.floor((timeElapsed-(h*3600))/60);
@@ -297,6 +299,7 @@
   // Build Board UI
   $(function(){
     $('#new_game').on('click', ()=>{
+      clearInterval(intervalId);
       $("#board ul li").unbind('click');
       $(document).unbind('contextmenu');
       $("#board").html("");
