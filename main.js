@@ -1,4 +1,5 @@
 //(function() {
+  var gameOver = false;
   var bW = 0;
   var bH = 0;
   function init(){
@@ -179,29 +180,36 @@ init()
       markZeros(row,col)  // And show the bordering weights
     }
     else if(a[row][col]===-1){        // Lose
-        $(e.currentTarget).text("*")
-        $(e.currentTarget).attr('style','background-color:#B22222')
+      gameOver=true;
+      $(e.currentTarget).text("*")
+      $(e.currentTarget).attr('style','background-color:#B22222')
 
-        for(var i = 0; i<bH; i++){
-          for(var k = 0; k<bW; k++){
-            $("#"+i+"_"+k).unbind('click');
-            $("#"+i+"_"+k).unbind('longclick');
-            if(a[i][k]===-1){
-              $("#"+i+"_"+k).attr('style','background-color:#B22222')
-              $("#"+i+"_"+k).text("*")
-            }
+      for(var i = 0; i<bH; i++){
+        for(var k = 0; k<bW; k++){
+          $("#"+i+"_"+k).unbind('click');
+          $("#"+i+"_"+k).unbind('longclick');
+          if(a[i][k]===-1){
+            $("#"+i+"_"+k).attr('style','background-color:#B22222')
+            $("#"+i+"_"+k).text("*")
           }
         }
+      }
     }
     else    // Valid Move
       $(e.currentTarget).text(a[row][col]);
   }
   // Flag a tile
   function spaceFlagged(e){console.log($(e.target).css('background-color'))
+    var id = e.target.id;
+    // get row/col from id
+    var row = id.substring(0,id.indexOf('_'))*1
+    var col = id.slice(id.indexOf('_')+1)*1
+    if(!style(row,col) && !gameOver){
     if($(e.target).css('background-color')==='rgb(211, 211, 211)')
       $(e.target).attr('style', 'background-color:#ECD503');
     else
       $(e.target).attr('style', 'background-color:#D3D3D3');
+    }
   }
 
   // TODO: Network turns/state
