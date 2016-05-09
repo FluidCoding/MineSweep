@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://git.heroku.com/gentle-river-68323.git"
+    "url": "https://git.heroku.com/mine-sweep.git"
   },
   "dependencies": {
     "express": "^4.4.5",

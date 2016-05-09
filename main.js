@@ -182,19 +182,17 @@ init()
       $(e.target).attr('style', 'background-color:#D3D3D3');
   }
   console.log(bombCount(bH,bW))
-
-        var host = location.origin.replace(/^http/, 'ws')
-        var ws = new WebSocket(host);
-        ws.onmessage = function (event) {
-        var li = document.createElement('li');
-        li.innerHTML = JSON.parse(event.data);
-        document.querySelector('#pings').appendChild(li);
-      };
+  var host = location.origin.replace(/^http/, 'ws')
+  var ws = new WebSocket(host);
+  ws.onmessage = function (event) {
+    var li = document.createElement('li');
+    li.innerHTML = JSON.parse(event.data);
+    document.querySelector('#pings').appendChild(li);
+  };
   $(function(){
     for(var i=0;i<bH;i++){
       var r = document.createElement('ul')
       r.id = 'r'+i;
-
       for(var k = 0; k<bW; k++ ){
         let spot = document.createElement('li')
         spot.id=i+'_'+k;
@@ -209,10 +207,10 @@ init()
       spaceFlagged(e);
     });
     $(document).on('contextmenu', function(e) {
-    if ($(e.target).is("li") ){
+      if ($(e.target).is("li") ){
         spaceFlagged(e);
        return false;
-     }
+      }
     });
   });
 //})();
