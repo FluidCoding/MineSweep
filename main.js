@@ -151,7 +151,7 @@ init()
       $("#"+r+"_"+dX).text(a[r][dX]);
       $("#"+r+"_"+dX).on('click', null)
     }
-    console.log("DX C", dX, c)
+// TODO: add diagnol auto marking
 //    if(uY!==r & a[uY][uX]===0 & !style(uY, uX)) markZeros(uY,uX)  // upperleft
 //    if(dX!==c & dY!==r & a[dY][dX]===0 & !style(dY, dX)) markZeros(dY,dX) //bottomright
   //  if(uX!==c & dY!==r & a[dY][uX]===0 & !style(dY, uX)) markZeros(dY,dX) //bottomleft
