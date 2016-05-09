@@ -111,7 +111,8 @@ init()
 
     if(a[r][c]==0){
         $("#"+r+"_"+c).attr('style', 'border-style:inset')
-        $("#"+r+"_"+c).on('click', null)
+        $("#"+r+"_"+c).unbind('click')
+        $("#"+r+"_"+c).unbind('longclick')
     }
 
     console.log("rc", r,c)
@@ -122,7 +123,8 @@ init()
       console.log("Marking Up Edge", r, c, uY, a[uY][c])
       $("#"+uY+"_"+c).attr('style', 'border-style:inset')
       $("#"+uY+"_"+c).text(a[uY][c]);
-      $("#"+uY+"_"+c).on('click', null)
+      $("#"+uY+"_"+c).unbind('click');
+      $("#"+uY+"_"+c).unbind('longclick');
     }
     if(dY!==r & a[dY][c]===0 & !style(dY, c)) {
       markZeros(dY,c) //down
@@ -131,7 +133,8 @@ init()
       console.log("Marking Down Edge", r, c, dY, a[dY][c])
       $("#"+dY+"_"+c).attr('style', 'border-style:inset')
       $("#"+dY+"_"+c).text(a[dY][c]);
-      $("#"+dY+"_"+c).on('click', null)
+      $("#"+dY+"_"+c).unbind('click');
+      $("#"+dY+"_"+c).unbind('longclick');
     }
     if(uX!==c & a[r][uX]===0 & !style(r, uX)){
       markZeros(r,uX)  //left
@@ -140,7 +143,8 @@ init()
       console.log("Marking Left Edge", r,c, uX, a[r][uX])
       $("#"+r+"_"+uX).attr('style', 'border-style:inset')
       $("#"+r+"_"+uX).text(a[r][uX]);
-      $("#"+r+"_"+uX).on('click', null)
+      $("#"+r+"_"+uX).unbind('click');
+      $("#"+r+"_"+uX).unbind('longclick');
     }
     if(dX!==c & a[r][dX]===0 & !style(r, dX)){
       markZeros(r,dX) //right
@@ -149,7 +153,8 @@ init()
       console.log("Marking Right Edge", r, c, dX, a[r][dX])
       $("#"+r+"_"+dX).attr('style', 'border-style:inset')
       $("#"+r+"_"+dX).text(a[r][dX]);
-      $("#"+r+"_"+dX).on('click', null)
+      $("#"+r+"_"+dX).unbind('click');
+      $("#"+r+"_"+dX).unbind('longclick');
     }
 // TODO: add diagnol auto marking
 //    if(uY!==r & a[uY][uX]===0 & !style(uY, uX)) markZeros(uY,uX)  // upperleft
@@ -158,29 +163,48 @@ init()
 
   }
   var a = Board(bH,bW,9);
-  function spaceClicked(e){console.log(e)
+  // Choose a tile
+  function spaceClicked(e){
     $(e.currentTarget).attr('style', 'border-style:inset');
+    // Unbind events (context menu still there) need to use mouse down
+    $(e.currentTarget).unbind('click');
+    $(e.currentTarget).unbind('longclick');
     var id = e.currentTarget.id;
     console.log(id)
+    // get row/col from id
     var row = id.substring(0,id.indexOf('_'))*1
     var col = id.slice(id.indexOf('_')+1)*1
     console.log(row,col)
-    if(a[row][col]===0){
-      markZeros(row,col)
+    if(a[row][col]===0){  // Mark all connecting Open spaces
+      markZeros(row,col)  // And show the bordering weights
     }
-    else if(a[row][col]===-1){
+    else if(a[row][col]===-1){        // Lose
         $(e.currentTarget).text("*")
         $(e.currentTarget).attr('style','background-color:#B22222')
+
+        for(var i = 0; i<bH; i++){
+          for(var k = 0; k<bW; k++){
+            $("#"+i+"_"+k).unbind('click');
+            $("#"+i+"_"+k).unbind('longclick');
+            if(a[i][k]===-1){
+              $("#"+i+"_"+k).attr('style','background-color:#B22222')
+              $("#"+i+"_"+k).text("*")
+            }
+          }
+        }
     }
-    else
+    else    // Valid Move
       $(e.currentTarget).text(a[row][col]);
   }
+  // Flag a tile
   function spaceFlagged(e){console.log($(e.target).css('background-color'))
     if($(e.target).css('background-color')==='rgb(211, 211, 211)')
       $(e.target).attr('style', 'background-color:#ECD503');
     else
       $(e.target).attr('style', 'background-color:#D3D3D3');
   }
+
+  // TODO: Network turns/state
   console.log(bombCount(bH,bW))
   var host = location.origin.replace(/^http/, 'ws')
   var ws = new WebSocket(host);
@@ -189,6 +213,7 @@ init()
     li.innerHTML = JSON.parse(event.data);
     document.querySelector('#pings').appendChild(li);
   };
+  // Build Board UI
   $(function(){
     for(var i=0;i<bH;i++){
       var r = document.createElement('ul')
