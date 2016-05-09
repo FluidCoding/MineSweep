@@ -1,6 +1,6 @@
 <html>
   <head>
-    <meta name="viewport" content="user-scalable=0, width=500px, minimum-scale=1.0"></meta>
+    <meta name="viewport" content="user-scalable=0, width=510px, minimum-scale=1.0"></meta>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <style>
       body {
@@ -25,6 +25,14 @@
         margin-left: 15%;
         margin-right: 15%;
         border-style: outset;
+      }
+      @media screen and (max-width:510px){
+        body{
+          padding: 0;
+        }
+        ul#board{
+          margin: 0;
+        }
       }
       ul#board ul{
         display:table-row;
