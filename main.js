@@ -1,11 +1,13 @@
 //(function() {
   var gameOver = false;
+  var timeElapsed = 0;
   var bW = 0;
   var bH = 0;
   var a;  // Board short-name
   // Choose a tile
   function init(){
     gameOver=false;
+    timeElapsed=0;
     bW = 10;
     bH = 10;
     a = Board(bH,bW,9);
@@ -222,6 +224,7 @@
     }  
   }
   function spaceClicked(e){
+    if(timeElapsed===0) startTimer();
     $(e.currentTarget).attr('style', 'border-style:inset');
     // Unbind events (context menu still there) need to use mouse down
     $(e.currentTarget).unbind('click');
@@ -267,7 +270,20 @@
       $(e.target).attr('style', 'background-color:#D3D3D3');
     }
   }
-
+  function startTimer(){
+    var hours=$("#hours");
+    var minutes=$("#minutes");
+    var seconds=$("#seconds");
+    setInterval(function(){
+      timeElapsed++;
+      let h = Math.floor(timeElapsed / 3600);
+      let m = Math.floor((timeElapsed-(h*3600))/60);
+      let s = timeElapsed-h*3600-m*60;
+      if(h!==0) $(hours).text(h > 9 ? "" + h + ":" : "0" + h + ":");
+      if(m!==0) $(minutes).text(m > 9 ? "" + m + ":": "0" + m + ":");
+      $(seconds).text(s > 9 ? "" + s: "0" + s);      
+    },1000);
+  }
   // TODO: Network turns/state
   console.log(bombCount(bH,bW))
   var host = location.origin.replace(/^http/, 'ws')
