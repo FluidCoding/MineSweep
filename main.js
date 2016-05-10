@@ -9,6 +9,10 @@
   function init(){
     clearInterval(intervalId);
     intervalId=0;
+    
+    $("#hours").text("0:");
+    $("#minutes").text("00:");
+    $("#seconds").text("00");
     gameOver=false;
     timeElapsed=0;
     bW = 10;
@@ -226,6 +230,12 @@
         $("#"+dY+"_"+uX).unbind('longclick');
     }  
   }
+  
+  
+  
+  /**
+   * 
+   */
   function spaceClicked(e){
     if(timeElapsed===0 && intervalId<=0) startTimer();
     $(e.currentTarget).attr('style', 'border-style:inset');
@@ -233,7 +243,7 @@
     $(e.currentTarget).unbind('click');
     $(e.currentTarget).unbind('longclick');
     var id = e.currentTarget.id;
-    console.log(id)
+    console.log('clicked', id)
     // get row/col from id
     var row = id.substring(0,id.indexOf('_'))*1
     var col = id.slice(id.indexOf('_')+1)*1
@@ -258,11 +268,25 @@
         }
       }
     }
-    else    // Valid Move
-      $(e.currentTarget).text(a[row][col]);
+    else{    // Valid Move
+      $(e.currentTarget).text(a[row][col]); 
+    }
+    var remainingTiles=0;
+    // Check number of tiles left that arent flagged
+    for(var i=0; i<bH; i++){
+      for(var k=0; k<bW; k++){
+        if(!style(i,k) && (a[i][k]!==-1) )
+          remainingTiles++;
+      }
+    }
+    if(remainingTiles===0){
+      clearInterval(intervalId);
+      alert("You Win!")
+    }
+    console.log("tiles", remainingTiles)
   }
   // Flag a tile
-  function spaceFlagged(e){console.log($(e.target).css('background-color'))
+  function spaceFlagged(e){
     var id = e.target.id;
     // get row/col from id
     var row = id.substring(0,id.indexOf('_'))*1
