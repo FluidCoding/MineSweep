@@ -112,6 +112,7 @@
     }
     return board;
   }
+  
   // isInset = style
   var style = function(_r,_c) { return document.getElementById(_r+"_"+_c).style.border==='inset'};
   /**
@@ -122,39 +123,23 @@
     var dY = 0
     var uX = 0
     var dX = 0
-    if(r>0){
-      uY=r-1
-    }
-    else{
-      uY = 0
-    }
-    if(r<bH-1){
-      dY=r+1
-    }
-    else{
-      dY=bH-1
-    }
-    if(c>0){
-      uX=c-1
-    }
-    else{
-      uX=0
-    }
-    if(c<bW-1){
-      dX=c+1
-    }
-    else{
-      dX=bW-1
-    }
+    if(r>0) uY=r-1
+    else uY = 0
+    if(r<bH-1) dY=r+1
+    else dY=bH-1
+    if(c>0) uX=c-1
+    else uX=0
+    if(c<bW-1)  dX=c+1
+    else dX=bW-1
 
-
+    // Mark Spot
     if(a[r][c]==0){
         $("#"+r+"_"+c).attr('style', 'border-style:inset')
         $("#"+r+"_"+c).unbind('click')
         $("#"+r+"_"+c).unbind('longclick')
     }
-
-    console.log("rc", r,c)
+    
+    // Crawl
     if(uY!==r & a[uY][c]===0 & !style(uY, c)){
        markZeros(uY,c) // up
      }
@@ -229,7 +214,7 @@
         $("#"+dY+"_"+uX).unbind('click');
         $("#"+dY+"_"+uX).unbind('longclick');
     }  
-  }
+  }// ----- End Select Click ---- \\
   
   
   
@@ -313,7 +298,7 @@
     },1000);
   }
   // TODO: Network turns/state
-  console.log(bombCount(bH,bW))
+ // console.log(bombCount(bH,bW))
   var host = location.origin.replace(/^http/, 'ws')
   var ws = new WebSocket(host);
 /*  ws.onmessage = function (event) {
