@@ -1,0 +1,159 @@
+<html>
+
+<head>
+  <meta name="viewport" content="user-scalable=0, width=510px, minimum-scale=1.0"></meta>
+  <title>Mine-Sweep</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <style>
+    body {
+      font-family: "Helvetica Neue", helvetica, arial;
+      padding: 15px;
+      background-color: #008B8B;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    ul#board {
+      display: table;
+      min-width: 500px;
+      max-width: 1000px;
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+
+      border-style: outset;
+    }
+
+    @media screen and (max-width:510px) {
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      ul#board {
+        margin: 0;
+      }
+      ul#board ul li {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      }
+    }
+
+    ul#board ul {
+      display: table-row;
+    }
+
+    ul#board ul li {
+      display: table-cell;
+      width: 5%;
+      border-style: outset;
+      background-color: #D3D3D3;
+      text-align: center;
+      font-weight: bold;
+      padding: 15px 12px;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      background-color: gray;
+      text-align:center;
+    }
+    #boardhead{
+      /*width: 450px;*/
+      margin-left: auto;
+      margin-right:auto;
+      margin-bottom: 0px;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      background-color: #0D4552;
+      min-width: 500px;
+      max-width: 1000px;
+      padding-top: 9px;
+      padding-bottom: 9px;
+      border-style: groove;
+      display: flex;
+      width: 70%;
+    }
+    #boardhead button{
+      align-self: flex-start;
+      padding-left: 10px;
+       margin: auto;
+    }
+    .timer{
+/*      align-self: center;*/
+      background-color: #000;
+      color: darkred;
+      font-weight:bold;
+      font-family: monospace;
+      padding: 7px 5px;
+      font-size: 15pt;
+       margin: auto;
+    }
+    #bombs{
+      background-color: #000;
+      color: darkred;
+      font-weight:bold;
+      font-family: monospace;
+      padding: 7px 5px;
+      font-size: 14pt;
+       margin: auto;
+
+    }
+    #new_game{
+      background-color: darkgrey;
+      font-family: monospace;
+      font-size: 15pt;
+    }
+    div#addPlayer{
+      background-color: #0D4552;
+      padding: 10px 9px;
+      display: table;
+      border-radius: 2px;
+      margin-left: auto;
+      /* text-align: center; */
+      margin-right: auto;
+      width: auto;
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none;   /* Chrome/Safari/Opera */
+      -khtml-user-select: none;    /* Konqueror */
+      -moz-user-select: none;
+    }
+    div#addPlayer span{
+      background-color: white;
+      padding: 4px;
+      -webkit-touch-callout: initial; /* iOS Safari */
+      -webkit-user-select: initial;   /* Chrome/Safari/Opera */
+      -khtml-user-select: initial;    /* Konqueror */
+      -moz-user-select: initial;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Mine-Sweeper</h1>
+  <div id='addPlayer'></div>
+  <div id='boardhead'>
+    <button id="new_game">New Game</button>
+    <span class="timer" id="timer0">Player 1: +<em id="minutes0">1:</em><em id="seconds0">00</em></span>
+    <span class="timer" id="timer1">Player 2: +<em id="minutes1">1:</em><em id="seconds1">00</em></span>
+  </div>
+  <ul id='board'></ul>
+</body>
+<footer>Dedicated to Rachel :D</footer>
+<script src="main2p.js"></script>
+
+</html>
