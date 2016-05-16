@@ -7,6 +7,10 @@ var port = process.env.PORT || 5000
 
 app.use(express.static(__dirname + "/"))
 
+app.get('/', function(req,res){
+  res.redirect('roomselect.html');
+});
+
 var server = http.createServer(app)
 server.listen(port)
 
@@ -17,7 +21,7 @@ console.log("websocket server created")
 
 wss.on("connection", function(ws) {
     ws.send(JSON.stringify(new Date()), function() {  })
-  ws.on("close", function() {
+    ws.on("close", function() {
     console.log("websocket connection close")
   })
 })

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Main Menu</title>
+    <style>
+      body {
+        font-family: "Helvetica Neue", helvetica, arial;
+        padding: 15px;
+        background-color: #008B8B;
+      }
+
+      ul.roomTypes{
+        background-color: #2F4F4F;
+        border-style: solid;
+        width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 20px;
+        padding-bottom: 40px;
+        height: 100%;
+        border-bottom-right-radius: 32px;
+        border-top-left-radius: 32px;
+      }
+      ul li{
+        display:block;
+        text-align:center;
+        padding-top:10px;
+        padding-bottom: 10px;
+        background-color: #25292B;
+        color: white;
+        font-family: sans-serif;
+        font-weight: bold;
+        font-size: 14pt;
+        border-top: 3px solid #807C7C;
+      }
+      ul li div{
+        border-radius: 6px;
+        margin-left: auto;
+        margin-right: auto;
+        display: inline;
+        padding: 5px  9px;
+      }
+      ul li div:hover{
+        background-color: #40474A;
+        padding-top:5px;
+        color:#E4E4E4;
+        cursor: default;
+      }
+      ul li:first-child{
+        padding-bottom: 1px;
+        border-top-left-radius: 12px;
+      }
+      ul li:last-child{
+        border-bottom-right-radius: 12px;
+        border-bottom: 3px solid black;
+      }
+      ul li a{
+        text-decoration: none;
+        color:inherit;
+      }
+      ul li h2{
+        color: #FF8C00;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="roomTypes">
+    <li><h2>Chose a Game Type</h2></li>
+    <li><a href="game.html"><div id="d_create1Player">Single Player</div></a></li>
+    <li><div id="d_create2Player">Play a Friend</div></li>
+    </ul>
+  </body>
+</html>
