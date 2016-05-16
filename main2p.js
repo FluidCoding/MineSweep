@@ -13,7 +13,7 @@
   function init(){
     clearInterval(intervalId);
     intervalId=0;
-
+    $("#bombcount").text("10");
     $("#minutes0").text("01:");
     $("#seconds0").text("00");
     $("#minutes1").text("01:");
@@ -305,10 +305,16 @@
     var row = id.substring(0,id.indexOf('_'))*1
     var col = id.slice(id.indexOf('_')+1)*1
     if(!style(row,col) && !gameOver){
-    if($(e.target).css('background-color')==='rgb(211, 211, 211)')
-      $(e.target).attr('style', 'background-color:#ECD503');
-    else
-      $(e.target).attr('style', 'background-color:#D3D3D3');
+      //var remMinesLabel = $("#bombcount");
+      //var remMines = remMinesLabel.text()*1;
+      if($(e.target).css('background-color')==='rgb(211, 211, 211)'){
+        $(e.target).attr('style', 'background-color:#ECD503');
+        //$(remMinesLabel).text(--remMines);
+      }
+      else{
+        $(e.target).attr('style', 'background-color:#D3D3D3');
+      //  $(remMinesLabel).text(++remMines);
+      }
     }
   }
   function startTimer(){

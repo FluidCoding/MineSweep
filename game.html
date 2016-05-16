@@ -39,6 +39,7 @@
       }
       ul#board {
         margin: 0;
+        min-width: 300px;
       }
       ul#board ul li {
         -webkit-touch-callout: none;
@@ -66,8 +67,7 @@
     }
 
     footer {
-      position: absolute;
-      bottom: 0px;
+      margin-top: 10px;
       width: 100%;
       background-color: gray;
       text-align:center;
@@ -127,7 +127,7 @@
   <div id='boardhead'>
     <button id="new_game">New Game</button>
     <span id="timer"><em id="hours">0:</em><em id="minutes">00:</em><em id="seconds">00</em></span>
-    <span id="bombs">Remaining Mines:<em id="bombcount">-</em></span>
+    <span id="bombs">Remaining Mines:<em id="bombcount">10</em></span>
   </div>
   <ul id='board'></ul>
 </body>
