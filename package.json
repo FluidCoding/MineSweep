@@ -6,6 +6,7 @@
     "url": "https://git.heroku.com/mine-sweep.git"
   },
   "dependencies": {
+    "babel-cli": "^6.5.2",
     "express": "^4.4.5",
     "jquery": "^2.2.3",
     "ws": "0.4.x"
@@ -14,6 +15,6 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "./node_modules/.bin/babel-node index.js"
   }
 }

@@ -300,10 +300,10 @@
   }
   // Flag a tile
   function spaceFlagged(e){
-    var id = e.target.id;
+    const id = e.target.id;
     // get row/col from id
-    var row = id.substring(0,id.indexOf('_'))*1
-    var col = id.slice(id.indexOf('_')+1)*1
+    const row = id.substring(0,id.indexOf('_'))*1
+    const col = id.slice(id.indexOf('_')+1)*1
     if(!style(row,col) && !gameOver){
       //var remMinesLabel = $("#bombcount");
       //var remMines = remMinesLabel.text()*1;

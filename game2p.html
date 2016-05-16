@@ -146,12 +146,44 @@
       -moz-user-select: initial;
       user-select: initial;
     }
+    /*#winPopup{
+      position:absolute;
+      top: 20%;
+      width: 100%;
+      height: 250px;
+      background-color: rgba(138, 156, 3, 0.92);
+      text-align: center;
+    }*/
+    #winPopup{
+      position: absolute;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(43, 43, 43, 0.64);
+      text-align: center;
+    }
+    #winPopup span{
+      padding: 10px;
+      top: 40%;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: #fff;
+      position: fixed;
+      border: 1px solid #000;
+      border-radius: 5px;
+    }
+
+    #winPopup span:hover{
+      background-color: #828181;
+      border-bottom: 3px solid black;
+    }
   </style>
 </head>
 
 <body>
   <h1>Mine-Sweeper</h1>
   <div id='addPlayer'></div>
+  <div id="winPopup"><span>Player 1 Wins</span></div>
   <div id='boardhead'>
     <button id="new_game">New Game</button>
     <span class="timer" id="timer0">Player 1: +<em id="minutes0">1:</em><em id="seconds0">00</em></span>
