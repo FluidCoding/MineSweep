@@ -9,15 +9,15 @@
   function init(){
     clearInterval(intervalId);
     intervalId=0;
-    
+
     $("#hours").text("0:");
     $("#minutes").text("00:");
     $("#seconds").text("00");
     gameOver=false;
     timeElapsed=0;
-    bW = 10;
-    bH = 10;
-    a = Board(bH,bW,9);
+    bW = 9;
+    bH = 9;
+    //a = Board(bH,bW,10);
     for(var i=0;i<bH;i++){
       var r = document.createElement('ul')
       r.id = 'r'+i;
@@ -41,6 +41,10 @@
       }
     });
   }
+  function init2PlayerRoom(){
+
+
+  }
   // count bombs
   var bombCount = function(x,y){
     var bC =0;
@@ -51,8 +55,15 @@
       }
       return bC;
   }
-  // Make Board
-  var Board = function(x,y,nb){
+  /*
+    Create a mine board given first click can't be a mine
+    x: board width
+    y: board height
+    nb: #of Mines
+    cX: first click x
+    cY: first click y
+  */
+  var Board = function(x,y,nb,cX,cY){
     // init struct
     var board=[]
     for(var i=0; i<y; i++)  board[i] = []
@@ -60,8 +71,11 @@
     while(nb>0){
       for(var iY=0; iY<y; iY++){
         for(var iX=0; iX<x; iX++){
-          if((Math.round(Math.random()*100)%18)==0 & nb>0){
-            if(board[iY][iX]!==-1){board[iY][iX]=-1;nb--;console.log(nb)}
+          if((Math.round(Math.random()*100)%18)==2 & nb>0){
+            if(board[iY][iX]!==-1  & (iY!==cY & iX!==cX)){
+              board[iY][iX]=-1;
+              nb--;console.log(nb)
+            }
           }
           else if(board[iY][iX] !== -1) board[iY][iX] = 0;
         }
@@ -112,7 +126,7 @@
     }
     return board;
   }
-  
+
   // isInset = style
   var style = function(_r,_c) { return document.getElementById(_r+"_"+_c).style.border==='inset'};
   /**
@@ -138,7 +152,7 @@
         $("#"+r+"_"+c).unbind('click')
         $("#"+r+"_"+c).unbind('longclick')
     }
-    
+
     // Crawl
     if(uY!==r & a[uY][c]===0 & !style(uY, c)){
        markZeros(uY,c) // up
@@ -180,7 +194,7 @@
       $("#"+r+"_"+dX).unbind('click');
       $("#"+r+"_"+dX).unbind('longclick');
     }
-// TODO: add diagnol auto marking
+    // TODO: add diagnol auto marking
     if(uY!==r & a[uY][uX]===0 & !style(uY, uX)) markZeros(uY,uX)
     else if(a[uY][uX]!==0){
       console.log("Marking UpLeft Edge", r, c, uY, a[uY][uX])
@@ -188,7 +202,7 @@
       $("#"+uY+"_"+uX).text(a[uY][uX]);
       $("#"+uY+"_"+uX).unbind('click');
       $("#"+uY+"_"+uX).unbind('longclick');
-      
+
     }  // upperleft
     if(dX!==c & a[uY][dX]===0 & !style(uY, dX)) markZeros(uY,dX)
     else if(a[uY][dX]!==0){
@@ -205,7 +219,7 @@
       $("#"+dY+"_"+dX).text(a[dY][dX]);
       $("#"+dY+"_"+dX).unbind('click');
       $("#"+dY+"_"+dX).unbind('longclick');
-    }  
+    }
      if(uX!==c & dY!==r & a[dY][uX]===0 & !style(dY, uX)) markZeros(dY,uX) //bottomleft
       else if(a[dY][uX]!==0){
         console.log("Marking bottom left Edge", r, c, dY, a[uY][uX])
@@ -213,25 +227,30 @@
         $("#"+dY+"_"+uX).text(a[dY][uX]);
         $("#"+dY+"_"+uX).unbind('click');
         $("#"+dY+"_"+uX).unbind('longclick');
-    }  
+    }
   }// ----- End Select Click ---- \\
-  
-  
-  
+
+
+
   /**
-   * 
+   *
    */
   function spaceClicked(e){
-    if(timeElapsed===0 && intervalId<=0) startTimer();
+    var id = e.currentTarget.id;
+    var row = id.substring(0,id.indexOf('_'))*1;
+    var col = id.slice(id.indexOf('_')+1)*1;
+
+    if(timeElapsed===0 && intervalId<=0) {
+      startTimer();
+      a = Board(bH,bW,10, col, row);
+    }
     $(e.currentTarget).attr('style', 'border-style:inset');
     // Unbind events (context menu still there) need to use mouse down
     $(e.currentTarget).unbind('click');
     $(e.currentTarget).unbind('longclick');
-    var id = e.currentTarget.id;
     console.log('clicked', id)
     // get row/col from id
-    var row = id.substring(0,id.indexOf('_'))*1
-    var col = id.slice(id.indexOf('_')+1)*1
+
     console.log(row,col)
     if(a[row][col]===0){  // Mark all connecting Open spaces
       markZeros(row,col)  // And show the bordering weights
@@ -254,7 +273,7 @@
       }
     }
     else{    // Valid Move
-      $(e.currentTarget).text(a[row][col]); 
+      $(e.currentTarget).text(a[row][col]);
     }
     var remainingTiles=0;
     // Check number of tiles left that arent flagged
@@ -294,7 +313,7 @@
       let s = timeElapsed-h*3600-m*60;
       if(h!==0) $(hours).text(h > 9 ? "" + h + ":" : "0" + h + ":");
       if(m!==0) $(minutes).text(m > 9 ? "" + m + ":": "0" + m + ":");
-      $(seconds).text(s > 9 ? "" + s: "0" + s);      
+      $(seconds).text(s > 9 ? "" + s: "0" + s);
     },1000);
   }
   // TODO: Network turns/state
@@ -313,7 +332,7 @@
       $("#board ul li").unbind('click');
       $(document).unbind('contextmenu');
       $("#board").html("");
-      init(); 
+      init();
     });
     init();
   });
