@@ -6,8 +6,8 @@
   var bH = 0;
   var turn = 0;
   var players = 1;
-  var timeP0 = 1*60;
-  var timeP1 = 1*60;
+  var timeP0 = 1*30;
+  var timeP1 = 1*30;
   var a;  // Board short-name
   // Choose a tile
   function init(){
@@ -76,8 +76,10 @@
     while(nb>0){
       for(var iY=0; iY<y; iY++){
         for(var iX=0; iX<x; iX++){
-          if((Math.round(Math.random()*100)%18)==2 & nb>0){
-            if(board[iY][iX]!==-1  & (iY!==cY & iX!==cX)){
+          if((iY===cY && iX===cX))  board[iY][iX] = 0;
+
+          else if((Math.round(Math.random()*100)%18)==0 & nb>0){
+            if(board[iY][iX]!==-1){
               board[iY][iX]=-1;
               nb--;console.log(nb)
             }
