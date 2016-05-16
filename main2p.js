@@ -278,6 +278,7 @@
           }
         }
       }
+      showWinner(turn);
     }
     else{    // Valid Move
       $(e.currentTarget).text(a[row][col]);
@@ -329,6 +330,11 @@
       $(minutes[turn]).text(m > 9 ? "" + m + ":": "0" + m + ":");
       $(seconds[turn]).text(s > 9 ? "" + s: "0" + s);
     },1000);
+  }
+  function showWinner(winner){
+    $("#winPopup").attr('style', 'display:block');
+    $("#winPopup").html("<span>Player " + (winner+1) + "Loses!</span>");
+    $("#winPopup span").on('click', (e)=> $("#winPopup").attr('style', 'display:none'));
   }
   // TODO: Network turns/state
  // console.log(bombCount(bH,bW))

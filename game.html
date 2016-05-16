@@ -118,12 +118,38 @@
       font-family: monospace;
       font-size: 15pt;
     }
+    #winPopup{
+      display: none;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(43, 43, 43, 0.64);
+    }
+    #winPopup span{
+      padding: 10px;
+      top: 40%;
+      margin-left: 40%;
+      margin-right: auto;
+      background-color: #fff;
+      position: fixed;
+      border: 1px solid #000;
+      border-radius: 5px;
+    }
+
+    #winPopup span:hover{
+      background-color: #828181;
+      border-bottom: 3px solid black;
+      cursor: hand;
+    }
   </style>
 </head>
 
 <body>
   <h1>Mine-Sweeper</h1>
   <ul id='pings'></ul>
+  <div id="winPopup"></div>
   <div id='boardhead'>
     <button id="new_game">New Game</button>
     <span id="timer"><em id="hours">0:</em><em id="minutes">00:</em><em id="seconds">00</em></span>

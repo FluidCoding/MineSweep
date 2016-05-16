@@ -273,6 +273,7 @@
           }
         }
       }
+      showWinner(false);
     }
     else{    // Valid Move
       $(e.currentTarget).text(a[row][col]);
@@ -287,7 +288,7 @@
     }
     if(remainingTiles===0){
       clearInterval(intervalId);
-      alert("You Win!")
+      showWinner(true);
     }
     console.log("tiles", remainingTiles)
   }
@@ -324,6 +325,13 @@
       $(seconds).text(s > 9 ? "" + s: "0" + s);
     },1000);
   }
+
+  function showWinner(winner){
+    $("#winPopup").attr('style', 'display:block');
+    $("#winPopup").html("<span>You " + (winner?"Win!!":"Lose =(") + "</span>");
+    $("#winPopup span").on('click', (e)=> $("#winPopup").attr('style', 'display:none'));
+  }
+
   // TODO: Network turns/state
  // console.log(bombCount(bH,bW))
   var host = location.origin.replace(/^http/, 'ws')
